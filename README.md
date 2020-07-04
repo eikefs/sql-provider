@@ -1,4 +1,4 @@
-# sql-builder
+# sql-provider
 A easy way to use SQL on Java. Create new connections and easy queries.
 
 # Creating tables
