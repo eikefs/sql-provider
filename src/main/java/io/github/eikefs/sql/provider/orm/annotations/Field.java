@@ -11,6 +11,7 @@ public @interface Field {
 
     boolean nullable() default true;
     boolean unique() default false;
+    boolean autoIncrement() default false;
     String type() default "varchar";
     int size() default -1;
 

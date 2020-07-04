@@ -28,12 +28,9 @@ public class Database {
 
             try (PreparedStatement statement = connection.prepareStatement(query);
                  ResultSet resultSet = statement.executeQuery()) {
-                int cursor = 1;
 
-                while (resultSet.next()) {
+                for (int cursor = 1; resultSet.next(); cursor++) {
                     objects.add(resultSet.getObject(cursor));
-
-                    cursor++;
                 }
 
             } catch (Exception e) {

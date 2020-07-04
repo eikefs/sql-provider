@@ -41,6 +41,7 @@ public class ORM {
 
                   if (tableField.unique()) sb.append("unique ");
                   if (!tableField.nullable()) sb.append("not null ");
+                  if (tableField.autoIncrement()) sb.append("auto_increment ");
 
                   sb.append(",");
               });

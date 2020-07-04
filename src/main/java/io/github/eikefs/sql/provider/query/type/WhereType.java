@@ -3,7 +3,11 @@ package io.github.eikefs.sql.provider.query.type;
 public enum WhereType {
 
     EQUALS(0, "="),
-    LIKE(1, "like");
+    LIKE(1, "like"),
+    BIGGEST_THAN(2, ">"),
+    LOWER_THAN(3, "<"),
+    BIG_EQUALS(4, ">="),
+    LOW_EQUALS(5, "<=");
 
     private final int index;
     private final String context;

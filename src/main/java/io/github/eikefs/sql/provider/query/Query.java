@@ -68,29 +68,24 @@ public class Query {
     }
 
     public Query where(String key, Object value) {
-        key = " `" + key + "` ";
-
-        stringBuilder
-                .append("where")
-                .append(key)
-                .append("=")
-                .append(" ")
-                .append(value);
-
-        return this;
+        return where(key, WhereType.EQUALS, value);
     }
 
-    public Query where(String key, WhereType type, Object value) {
+    public Query where(String key, String type, Object value) {
         key = " `" + key + "` ";
         String val = " '" + value + "'";
 
         stringBuilder
                 .append("where")
                 .append(key)
-                .append(type.getContext())
+                .append(type)
                 .append(val);
 
         return this;
+    }
+
+    public Query where(String key, WhereType type, Object value) {
+        return where(key, type.getContext(), value);
     }
 
     public Query and() {
@@ -146,6 +141,20 @@ public class Query {
                 .append("drop ")
                 .append(type)
                 .append(name);
+
+        return this;
+    }
+
+    public Query delete(String... sets) {
+        stringBuilder.append("delete ");
+
+        for (int index = 0; index < sets.length; index++) {
+            String set = "`" + sets[index] + "`";
+
+            if (index + 1 < sets.length) set += ", ";
+
+            stringBuilder.append(set);
+        }
 
         return this;
     }
