@@ -44,16 +44,20 @@ public class Database {
         });
     }
 
-    public void update(Query query) {
-        update(query.raw());
+    public CompletableFuture<Void> update(Query query) {
+        return update(query.raw());
     }
 
-    public void update(String query) {
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public CompletableFuture<Void> update(String query) {
+        return CompletableFuture.supplyAsync(() -> {
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.executeUpdate();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        });
     }
 
     public void shutdown() {

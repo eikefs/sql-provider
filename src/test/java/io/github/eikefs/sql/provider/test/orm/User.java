@@ -7,13 +7,13 @@ import io.github.eikefs.sql.provider.orm.annotations.Table;
 @Table(name = "user", primary = "id")
 public class User extends ORM {
 
-    @Field(sqlType = "int", size = 8)
+    @Field(type = "int", size = 8, nullable = false)
     private int id;
 
-    @Field(size = 32)
+    @Field(size = 32, nullable = false)
     private String name;
 
-    @Field(sqlType = "real", size = 8)
+    @Field(type = "real", size = 8, nullable = false)
     private double money;
 
     public static String create() {

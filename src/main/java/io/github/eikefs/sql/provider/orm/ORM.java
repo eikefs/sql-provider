@@ -5,22 +5,16 @@ import io.github.eikefs.sql.provider.orm.annotations.Table;
 
 import java.util.Arrays;
 
-
 public class ORM {
 
     public static String create(Class<?> tableClass) {
         StringBuilder sb = new StringBuilder();
 
-        if (!tableClass.isAnnotationPresent(Table.class)) return "";
-
-        Table table;
-        try {
-            table = tableClass.getAnnotation(Table.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            return "";
+        if (!tableClass.isAnnotationPresent(Table.class)) {
+            throw new IllegalArgumentException("Cannot create a create query from a not-queryable class.");
         }
+
+        Table table = tableClass.getAnnotation(Table.class);
 
         sb.append("create table ");
 
@@ -31,24 +25,25 @@ public class ORM {
           .append("` (");
 
         Arrays.stream(tableClass.getDeclaredFields())
-                .filter((field) -> field.isAnnotationPresent(Field.class))
-                .forEach((field) -> {
-                    Field tableField = field.getAnnotation(Field.class);
+              .filter((field) -> field.isAnnotationPresent(Field.class))
+              .forEach((field) -> {
+                  Field tableField = field.getAnnotation(Field.class);
 
-                    sb.append("`")
+                  sb.append("`")
                       .append(field.getName())
                       .append("` ");
 
-                    if (tableField.unique()) sb.append("unique ");
-                    if (!tableField.nullable()) sb.append("not null ");
+                  sb.append(tableField.type());
 
-                    sb.append(tableField.sqlType())
-                      .append(" (")
-                      .append(tableField.size())
-                      .append(")");
+                  if (tableField.size() > 0) {
+                      sb.append(" (").append(tableField.size()).append(") ");
+                  }
 
-                    sb.append(",");
-                });
+                  if (tableField.unique()) sb.append("unique ");
+                  if (!tableField.nullable()) sb.append("not null ");
+
+                  sb.append(",");
+              });
 
         sb.append("primary key (`" + table.primary() + "`)");
 

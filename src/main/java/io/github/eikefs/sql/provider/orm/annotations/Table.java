@@ -14,3 +14,4 @@ public @interface Table {
     boolean unique() default false;
 
 }
+

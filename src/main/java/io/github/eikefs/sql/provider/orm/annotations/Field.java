@@ -9,9 +9,9 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface Field {
 
-    boolean nullable() default false;
+    boolean nullable() default true;
     boolean unique() default false;
-    String sqlType() default "varchar";
-    int size() default 255;
+    String type() default "varchar";
+    int size() default -1;
 
 }
