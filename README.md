@@ -23,7 +23,7 @@ Database#update(Query.table()
 
 And others examples you may get on `QueriesTest.java` file, on test folder.
 
-# How to use
+# How to install
 
 ```xml
 <repository>
