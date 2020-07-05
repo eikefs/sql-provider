@@ -9,8 +9,10 @@ public class Provider {
 
     private Provider() {}
 
-    public static Provider newProvider() {
-        return new Provider();
+    private static final Provider instance = new Provider();
+
+    public static Provider getInstance() {
+        return instance;
     }
 
     private Connection newConnection(String url) {
