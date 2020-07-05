@@ -9,11 +9,11 @@ public class Provider {
 
     private Provider() {}
 
-    public static Provider get() {
+    public static Provider newProvider() {
         return new Provider();
     }
 
-    private Connection get(String url) {
+    private Connection from(String url) {
         try {
             Class.forName("org.sqlite.JDBC");
 
@@ -27,7 +27,7 @@ public class Provider {
         return null;
     }
 
-    private Connection get(String url, String user, String pass) {
+    private Connection from(String url, String user, String pass) {
         try {
             Class.forName("org.sqlite.JDBC");
 
@@ -42,11 +42,11 @@ public class Provider {
     }
 
     public Database submit(String url) {
-        return new Database(get(url));
+        return new Database(from(url));
     }
 
     public Database submit(String url, String user, String pass) {
-        return new Database(get(url, user, pass));
+        return new Database(from(url, user, pass));
     }
 
 }
