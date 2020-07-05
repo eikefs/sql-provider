@@ -18,11 +18,6 @@ public abstract class Model<T extends Model<?>> {
 
     private final String tableName;
 
-    /**
-     * Cache of field setter methods
-     */
-    private final Set<Method> setterMethods = new HashSet<>();
-
     protected Model(String tableName) {
         this.tableName = tableName;
     }
