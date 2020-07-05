@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
 public class QueriesTest {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Database database = Provider.get().submit("memory");
+        Database database = Provider.getInstance().submit("memory");
 
         // Creating tables
         database.update(
