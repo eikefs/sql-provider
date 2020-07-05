@@ -4,7 +4,6 @@ import io.github.eikefs.sql.provider.database.Database;
 import io.github.eikefs.sql.provider.query.Query;
 
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -57,6 +56,7 @@ public abstract class Model {
         return database.update(new Query()
                 .from(tableName)
                 .update()
+                .where("id", id)
                 .sets(filteredData));
     }
 
