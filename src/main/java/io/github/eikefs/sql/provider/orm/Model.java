@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * This class provides an easy mode to create models with methods create,
  * update and delete that will make the binding with Provider.
  */
-public abstract class Model<T extends Model<?>> {
+public abstract class Model {
 
     private final String tableName;
 
