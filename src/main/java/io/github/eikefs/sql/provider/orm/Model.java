@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -48,9 +49,9 @@ public abstract class Model<T extends Model<?>> {
      *
      * @param database The database connection
      * @param data The data that you want to change
-     * @return the model instance
+     * @return the result of query
      */
-    public T update(final Database database, final Map<String, Object> data) {
+    public CompletableFuture<Set<Object>> update(final Database database, final Map<String, Object> data) {
         final Map<String, Object> filteredData = data.entrySet()
                 .stream()
                 .filter(entry -> entry.getValue() != null)
@@ -59,15 +60,10 @@ public abstract class Model<T extends Model<?>> {
                         Map.Entry::getValue
                 ));
 
-        database.query(new Query()
+        return database.query(new Query()
                 .from(tableName)
                 .update()
                 .sets(filteredData));
-
-
-        // That will be suppressed, 'cause this will be T when extend this class.
-        // noinspection unchecked
-        return (T) this;
     }
 
 }
