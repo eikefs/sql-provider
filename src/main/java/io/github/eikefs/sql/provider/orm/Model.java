@@ -45,7 +45,7 @@ public abstract class Model {
      * @param data The data that you want to change
      * @return the result of query
      */
-    public CompletableFuture<Set<Object>> update(final Database database, final Map<String, Object> data) {
+    public CompletableFuture<Void> update(final Database database, final Map<String, Object> data) {
         final Map<String, Object> filteredData = data.entrySet()
                 .stream()
                 .filter(entry -> entry.getValue() != null)
@@ -54,7 +54,7 @@ public abstract class Model {
                         Map.Entry::getValue
                 ));
 
-        return database.query(new Query()
+        return database.update(new Query()
                 .from(tableName)
                 .update()
                 .sets(filteredData));
