@@ -3,8 +3,6 @@ package io.github.eikefs.sql.provider.orm;
 import io.github.eikefs.sql.provider.database.Database;
 import io.github.eikefs.sql.provider.query.Query;
 
-import java.lang.reflect.Method;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -17,6 +15,7 @@ import java.util.stream.Collectors;
 public abstract class Model {
 
     private final String tableName;
+    private long id;
 
     protected Model(String tableName) {
         this.tableName = tableName;
@@ -61,4 +60,32 @@ public abstract class Model {
                 .sets(filteredData));
     }
 
+    /**
+     * This will delete the current model using id as the searcher
+     *
+     * @param database The database connection
+     * @return the result of query
+     */
+    public CompletableFuture<Void> delete(final Database database) {
+        return database.update(new Query()
+                .from(tableName)
+                .delete()
+                .where("id", id));
+    }
+
+    /**
+     * @return The model's id
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
+     * Sets the model's id
+     *
+     * @param id New id
+     */
+    public void setId(final long id) {
+        this.id = id;
+    }
 }
