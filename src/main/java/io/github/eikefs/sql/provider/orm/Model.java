@@ -57,6 +57,7 @@ public abstract class Model {
         return database.update(new Query()
                 .from(tableName)
                 .update()
+                .where("id", id)
                 .sets(filteredData));
     }
 
