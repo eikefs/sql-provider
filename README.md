@@ -8,7 +8,6 @@ Database database = Provider.getInstance().submit(url, user, password); // Or Pr
 ```
 
 # Creating tables
-When you end the attributes writing of your table, you must add `.close()`.
 
 ```java
 Database#update(new TableQuery()
