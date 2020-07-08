@@ -4,21 +4,21 @@ A easy way to use SQL on Java. Create new connections and easy queries.
 # Creating database-connections
 
 ```java
-Database database = Provider.get().submit(url, user, password); // Or Provider.get().submit(url)
+Database database = Provider.getInstance().submit(url, user, password); // Or Provider.getInstance().submit(url)
 ```
 
 # Creating tables
 When you end the attributes writing of your table, you must add `.close()`.
 
 ```java
-Database#update(Query.table()
+Database#update(new TableQuery()
       .name("users", true)
-      .fields(TableFields.get()
-              .name("userName")
-              .type("varchar")
-              .size(32))
-      .primaryKey("userName")
-      .close());
+      .fields(new TableField()
+              .name("id")
+              .type("int")
+              .size(8)
+              .autoIncrement())
+      .primary("id"));
 ```
 
 And others examples you may get on `QueriesTest.java` file, on test folder.
@@ -36,7 +36,7 @@ And others examples you may get on `QueriesTest.java` file, on test folder.
 <dependency>
       <groupId>com.github.eikefs</groupId>
       <artifactId>sql-provider</artifactId>
-      <version>1.0</version>
+      <version>1.0.1</version>
 <dependency>
 ```
 
