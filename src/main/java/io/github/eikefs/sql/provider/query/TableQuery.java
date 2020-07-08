@@ -12,19 +12,13 @@ public class TableQuery extends Query {
         for (int index = 0; index < fields.length; index++) {
             builder.append(fields[index].build());
 
-            if (index + 1 < fields.length) builder.append(",");
+            if (index + 1 < fields.length) builder.append(", ");
         }
 
         return this;
     }
 
-    public TableQuery close() {
-        builder.append(")");
-
-        return this;
-    }
-
-    public TableQuery primaryKey(String fieldName) {
+    public TableQuery primary(String fieldName) {
         builder.append(",")
                 .append("primary key (")
                 .append(fieldName)
@@ -33,7 +27,7 @@ public class TableQuery extends Query {
         return this;
     }
 
-    public TableQuery foreignKey(String fieldName, String reference, String tableReference) {
+    public TableQuery foreign(String fieldName, String reference, String tableReference) {
         fieldName = '`' + fieldName + '`';
         reference = '`' + reference + '`';
 
@@ -41,7 +35,7 @@ public class TableQuery extends Query {
                 .append(fieldName)
                 .append(" references ")
                 .append(tableReference)
-                .append("(")
+                .append(" (")
                 .append(reference)
                 .append(")");
 
@@ -64,7 +58,7 @@ public class TableQuery extends Query {
 
     @Override
     public String raw() {
-        return builder.toString().trim() + ";";
+        return builder.toString().trim() + ");";
     }
 
 }

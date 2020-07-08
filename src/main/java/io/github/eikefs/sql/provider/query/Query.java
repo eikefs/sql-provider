@@ -4,6 +4,7 @@ import io.github.eikefs.sql.provider.query.type.OrderType;
 import io.github.eikefs.sql.provider.query.type.WhereType;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Query {
 
@@ -13,12 +14,8 @@ public class Query {
         this.stringBuilder = new StringBuilder();
     }
 
-    public static Query get() {
-        return new Query();
-    }
-
-    public static TableQuery table() {
-        return new TableQuery();
+    public Query(String s) {
+        this.stringBuilder = new StringBuilder(s);
     }
 
     public String raw() {
@@ -43,6 +40,12 @@ public class Query {
         return this;
     }
 
+    public Query selectAll() {
+       stringBuilder.append("select * from");
+
+       return this;
+    }
+
     public Query from(String table) {
         table = '`' + table + '`';
 
@@ -58,7 +61,7 @@ public class Query {
     }
 
     public Query sets(Map<String, Object> sets) {
-        for (Map.Entry<String, Object> entry : sets.entrySet()) {
+        for (Entry<String, Object> entry : sets.entrySet()) {
             String set = '`' + entry.getKey() + '`';
 
             stringBuilder.append(set).append("=").append(entry.getValue());
@@ -103,6 +106,7 @@ public class Query {
         stringBuilder
                 .append("order by ")
                 .append(field)
+                .append(" ")
                 .append(orderType.getContext());
 
         return this;
@@ -140,6 +144,7 @@ public class Query {
         stringBuilder
                 .append("drop ")
                 .append(type)
+                .append(" ")
                 .append(name);
 
         return this;

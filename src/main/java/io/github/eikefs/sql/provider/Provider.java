@@ -31,7 +31,7 @@ public class Provider {
 
     private Connection newConnection(String url, String user, String pass) {
         try {
-            Class.forName("org.sqlite.JDBC");
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
             url = url.startsWith("jdbc:mysql://") ? "jdbc:mysql://" + url : url;
 
