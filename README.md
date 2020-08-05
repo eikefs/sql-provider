@@ -36,6 +36,6 @@ And others examples you may get on `QueriesTest.java` file, on test folder.
       <groupId>com.github.eikefs</groupId>
       <artifactId>sql-provider</artifactId>
       <version>1.0.1</version>
-<dependency>
+</dependency>
 ```
 
