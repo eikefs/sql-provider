@@ -61,11 +61,15 @@ public class Query {
     }
 
     public Query sets(Map<String, Object> sets) {
+        stringBuilder.append("set ");
+
         for (Entry<String, Object> entry : sets.entrySet()) {
             String set = '`' + entry.getKey() + '`';
 
             stringBuilder.append(set).append("=").append(entry.getValue());
         }
+
+        stringBuilder.append(" ");
 
         return this;
     }
