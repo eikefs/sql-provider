@@ -69,6 +69,8 @@ public class Query {
             stringBuilder.append(set).append("=").append(entry.getValue());
         }
 
+        stringBuilder.append(" ");
+
         return this;
     }
 
